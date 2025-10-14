@@ -54,6 +54,14 @@ function Footer() {
               </li>
               <li className="mb-2">
                 <Link
+                  to="/cancellations-and-refunds"
+                  className="hover:text-indigo-400"
+                >
+                  Refund Policy
+                </Link>
+              </li>
+              <li className="mb-2">
+                <Link
                   to="/terms-and-conditions"
                   className="hover:text-indigo-400"
                 >

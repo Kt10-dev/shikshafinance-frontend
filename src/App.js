@@ -54,6 +54,10 @@ function App() {
           }
         />
         <Route
+          path="/cancellations-and-refunds"
+          element={<CancellationsAndRefunds />}
+        />
+        <Route
           path="/verify-kyc"
           element={
             <UserProtectedRoute>
