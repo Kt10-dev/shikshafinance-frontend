@@ -18,6 +18,7 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import HowItWorks from "./components/HowItWorks";
 import ApplyLoan from "./pages/ApplyLoan"; // NAYI LINE
 import PayRegistrationFee from "./components/PayRegistrationFee"; // <
+import CancellationsAndRefunds from "./pages/CancellationsAndRefunds";
 function App() {
   return (
     <Router>
