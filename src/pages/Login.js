@@ -13,10 +13,13 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const loginRes = await axios.post("http://localhost:5000/users/login", {
-        email,
-        password,
-      });
+      const loginRes = await axios.post(
+        "https://shikshafinance-api.onrender.com/users/login",
+        {
+          email,
+          password,
+        }
+      );
       // Login successful, save the token
       localStorage.setItem("token", loginRes.data.token);
       // Redirect to the user dashboard

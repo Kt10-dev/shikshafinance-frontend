@@ -13,7 +13,10 @@ function AdminLogin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/auth/login", { username, password })
+      .post("https://shikshafinance-api.onrender.com/auth/login", {
+        username,
+        password,
+      })
       .then((response) => {
         if (response.data.success) {
           // Login successful hone par, browser mein ek 'flag' save karein

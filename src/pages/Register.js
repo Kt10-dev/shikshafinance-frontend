@@ -24,7 +24,7 @@ function Register() {
     try {
       // 3. Ab poora formData object (name ke saath) bheja ja raha hai
       const response = await axios.post(
-        "http://localhost:5000/users/register",
+        "https://shikshafinance-api.onrender.com/users/register",
         formData
       );
       setMessage(response.data.message);

@@ -477,7 +477,7 @@ function StylishDashboard() {
         return;
       }
       const response = await axios.get(
-        "http://localhost:5000/applications/my-application",
+        "https://shikshafinance-api.onrender.com/applications/my-application",
         { headers: { "x-auth-token": token } }
       );
       setApplication(response.data.application);
@@ -492,7 +492,7 @@ function StylishDashboard() {
   useEffect(() => {
     fetchDashboardData();
 
-    const socket = io("http://localhost:5000");
+    const socket = io("https://shikshafinance-api.onrender.com");
 
     socket.on("status_updated", (update) => {
       setApplication((prevApp) => {
@@ -519,10 +519,12 @@ function StylishDashboard() {
       const token = localStorage.getItem("token");
       const {
         data: { key },
-      } = await axios.get("http://localhost:5000/payment/get-key");
+      } = await axios.get(
+        "https://shikshafinance-api.onrender.com/payment/get-key"
+      );
 
       const { data: order } = await axios.post(
-        "http://localhost:5000/payment/create-order",
+        "https://shikshafinance-api.onrender.com/payment/create-order",
         {
           amount: emi.emiAmount,
           loanId: application._id,
@@ -545,7 +547,7 @@ function StylishDashboard() {
             emiId: emi._id,
           };
           await axios.post(
-            "http://localhost:5000/payment/verify-payment",
+            "https://shikshafinance-api.onrender.com/payment/verify-payment",
             verificationData,
             { headers: { "x-auth-token": token } }
           );
@@ -578,7 +580,7 @@ function StylishDashboard() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5000/applications/my-application/download-statement",
+        "https://shikshafinance-api.onrender.com/applications/my-application/download-statement",
         {
           headers: { "x-auth-token": token },
           responseType: "blob",

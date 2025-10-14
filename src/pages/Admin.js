@@ -15,7 +15,7 @@ function Admin() {
   useEffect(() => {
     // Pehli baar data fetch karo
     axios
-      .get("http://localhost:5000/applications/")
+      .get("https://shikshafinance-api.onrender.com/applications/")
       .then((response) => {
         setApplications(response.data);
         setLoading(false);
@@ -27,7 +27,7 @@ function Admin() {
       });
 
     // Backend se socket connection banao
-    const socket = io("http://localhost:5000");
+    const socket = io("https://shikshafinance-api.onrender.com");
 
     // Listener 1: Jab nayi application aaye
     socket.on("new_application_added", (newApplication) => {
@@ -80,7 +80,7 @@ function Admin() {
   const handleDownloadStatement = async (app) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/applications/${app._id}/download-statement`,
+        `https://shikshafinance-api.onrender.com/applications/${app._id}/download-statement`,
         { responseType: "blob" }
       );
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -115,7 +115,7 @@ function Admin() {
     // Ab hum sirf backend ko request bhejenge, UI update socket se hoga
     axios
       .patch(
-        `http://localhost:5000/applications/update-status/${id}`,
+        `https://shikshafinance-api.onrender.com/applications/update-status/${id}`,
         dataToUpdate
       )
       .catch((error) => {
@@ -134,7 +134,7 @@ function Admin() {
     ) {
       try {
         const response = await axios.post(
-          `http://localhost:5000/applications/${loanId}/send-reminder/${emiId}`
+          `https://shikshafinance-api.onrender.com/applications/${loanId}/send-reminder/${emiId}`
         );
         alert(response.data.message);
       } catch (error) {

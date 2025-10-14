@@ -76,7 +76,7 @@ function ApplyForm() {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/applications/apply",
+        "https://shikshafinance-api.onrender.com/applications/apply",
         data,
         config
       );
@@ -384,7 +384,7 @@ function ApplyForm() {
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Please Upload Here Collage/School Student ID Card (PDF, JPG,
+                  Please Upload Here College/School Student ID Card (PDF, JPG,
                   PNG)
                 </label>
                 <input

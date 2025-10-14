@@ -13,7 +13,9 @@ function AdminStats() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/stats/");
+        const { data } = await axios.get(
+          "https://shikshafinance-api.onrender.com/stats/"
+        );
         setStats(data);
       } catch (err) {
         console.error("Failed to fetch stats", err);

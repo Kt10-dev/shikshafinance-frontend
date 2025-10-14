@@ -18,7 +18,7 @@ function PayRegistrationFee() {
       try {
         const token = localStorage.getItem("token");
         const { data } = await axios.get(
-          "http://localhost:5000/applications/my-application",
+          "https://shikshafinance-api.onrender.com",
           {
             headers: { "x-auth-token": token },
           }
@@ -39,11 +39,13 @@ function PayRegistrationFee() {
       // Step 1: Backend se Razorpay key lo
       const {
         data: { key },
-      } = await axios.get("http://localhost:5000/payment/get-key");
+      } = await axios.get(
+        "https://shikshafinance-api.onrender.com/payment/get-key"
+      );
 
       // Step 2: NAYE WALE ROUTE se Order create karo
       const { data: order } = await axios.post(
-        "http://localhost:5000/payment/create-registration-order",
+        "https://shikshafinance-api.onrender.com/payment/create-registration-order",
         {
           amount: registrationFeeAmount,
           applicationId: applicationId,
@@ -63,7 +65,7 @@ function PayRegistrationFee() {
           // Step 4: NAYE WALE ROUTE se Payment verify karo
           const verificationData = { ...response, applicationId };
           await axios.post(
-            "http://localhost:5000/payment/verify-registration-payment",
+            "https://shikshafinance-api.onrender.com/payment/verify-registration-payment",
             verificationData,
             { headers: { "x-auth-token": token } }
           );

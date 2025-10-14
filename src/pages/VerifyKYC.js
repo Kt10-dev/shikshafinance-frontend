@@ -44,7 +44,7 @@ function VerifyKYC() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/kyc/upload-documents",
+        "https://shikshafinance-api.onrender.com/kyc/upload-documents",
         formData,
         {
           headers: {
