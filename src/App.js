@@ -19,6 +19,7 @@ import HowItWorks from "./components/HowItWorks";
 import ApplyLoan from "./pages/ApplyLoan"; // NAYI LINE
 import PayRegistrationFee from "./components/PayRegistrationFee"; // <
 import CancellationsAndRefunds from "./pages/CancellationsAndRefunds";
+import PaymentStatus from "./pages/PaymentStatus";
 function App() {
   return (
     <Router>
@@ -44,6 +45,14 @@ function App() {
         <Route
           path="/pay-registration-fee/:applicationId"
           element={<PayRegistrationFee />}
+        />
+        <Route
+          path="/payment-status"
+          element={
+            <UserProtectedRoute>
+              <PaymentStatus />
+            </UserProtectedRoute>
+          }
         />
         {/* Admin page ko ab ProtectedRoute se wrap karein */}
         <Route

@@ -35,56 +35,33 @@ function PayRegistrationFee() {
 
   const handlePayment = async () => {
     try {
+      setLoading(true); // Assuming you have a loading state
       const token = localStorage.getItem("token");
-      // Step 1: Backend se Razorpay key lo
-      const {
-        data: { key },
-      } = await axios.get(
-        "https://shikshafinance-api.onrender.com/payment/get-key"
-      );
 
-      // Step 2: NAYE WALE ROUTE se Order create karo
-      const { data: order } = await axios.post(
-        "https://shikshafinance-api.onrender.com/payment/create-registration-order",
+      // Call the new Instamojo backend route
+      const { data } = await axios.post(
+        "https://shikshafinance-api.onrender.com/instamojo/create-payment-link",
         {
           amount: registrationFeeAmount,
+          purpose: "ShikshaFinance Platform Fee",
+          buyer_name: application.fullName,
+          email: application.email,
           applicationId: applicationId,
         },
         { headers: { "x-auth-token": token } }
       );
 
-      // Step 3: Razorpay options
-      const options = {
-        key,
-        amount: order.amount,
-        currency: "INR",
-        name: "ShikshaFinance Registration",
-        description: "Loan Application Registration Fee",
-        order_id: order.id,
-        handler: async function (response) {
-          // Step 4: NAYE WALE ROUTE se Payment verify karo
-          const verificationData = { ...response, applicationId };
-          await axios.post(
-            "https://shikshafinance-api.onrender.com/payment/verify-registration-payment",
-            verificationData,
-            { headers: { "x-auth-token": token } }
-          );
-          alert("Payment successful! Your application is now under review.");
-          navigate("/dashboard"); // Payment ke baad dashboard par bhej do
-        },
-        prefill: {
-          name: application?.fullName || "User Name",
-          email: application?.email || "user@example.com",
-          contact: application?.phone || "9999999999",
-        },
-        theme: { color: "#4f46e5" },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
+      if (data.success && data.payment_url) {
+        // Redirect the user to the Instamojo payment page
+        window.location.href = data.payment_url;
+      } else {
+        alert("Could not create payment link. Please try again.");
+      }
     } catch (error) {
-      alert("Payment failed! Please try again.");
+      alert("Payment initiation failed! Please try again.");
       console.error("Payment Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
