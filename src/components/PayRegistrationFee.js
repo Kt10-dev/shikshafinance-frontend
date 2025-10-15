@@ -4,21 +4,20 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FaRupeeSign, FaShieldAlt } from "react-icons/fa";
 
 function PayRegistrationFee() {
-  const { applicationId } = useParams(); // URL se application ID nikalega
+  const { applicationId } = useParams();
   const navigate = useNavigate();
   const [application, setApplication] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Yeh registration fee fix hai
-  const registrationFeeAmount = 199; // Aap isko change kar sakte hain
+  const registrationFeeAmount = 199;
 
-  // Get user details for prefill
   useEffect(() => {
     const fetchAppDetails = async () => {
       try {
         const token = localStorage.getItem("token");
+        // BADLAAV YAHAN HAI: Sahi URL se data fetch karein
         const { data } = await axios.get(
-          "https://shikshafinance-api.onrender.com",
+          "https://shikshafinance-api.onrender.com/applications/my-application",
           {
             headers: { "x-auth-token": token },
           }
@@ -34,38 +33,61 @@ function PayRegistrationFee() {
   }, []);
 
   const handlePayment = async () => {
-    try {
-      setLoading(true); // Assuming you have a loading state
-      const token = localStorage.getItem("token");
+    // Check if application details are loaded
+    if (!application) {
+      alert("User details not loaded yet. Please wait a moment and try again.");
+      return;
+    }
 
-      // Call the new Instamojo backend route
-      const { data } = await axios.post(
-        "https://shikshafinance-api.onrender.com/instamojo/create-payment-link",
-        {
-          amount: registrationFeeAmount,
-          purpose: "ShikshaFinance Platform Fee",
-          buyer_name: application.fullName,
-          email: application.email,
-          applicationId: applicationId,
-        },
+    try {
+      const token = localStorage.getItem("token");
+      const {
+        data: { key },
+      } = await axios.get(
+        "https://shikshafinance-api.onrender.com/payment/get-key"
+      );
+
+      const { data: order } = await axios.post(
+        "https://shikshafinance-api.onrender.com/payment/create-registration-order",
+        { amount: registrationFeeAmount, applicationId: applicationId },
         { headers: { "x-auth-token": token } }
       );
 
-      if (data.success && data.payment_url) {
-        // Redirect the user to the Instamojo payment page
-        window.location.href = data.payment_url;
-      } else {
-        alert("Could not create payment link. Please try again.");
-      }
+      const options = {
+        key,
+        amount: order.amount,
+        currency: "INR",
+        name: "ShikshaFinance Platform Fee",
+        description: "One-time Application Processing Fee",
+        order_id: order.id,
+        handler: async function (response) {
+          const verificationData = { ...response, applicationId };
+          await axios.post(
+            "https://shikshafinance-api.onrender.com/payment/verify-registration-payment",
+            verificationData,
+            { headers: { "x-auth-token": token } }
+          );
+          alert("Payment successful! Your application is now under review.");
+          navigate("/dashboard");
+        },
+        prefill: {
+          name: application.fullName,
+          email: application.email,
+          contact: application.phone,
+        },
+        theme: { color: "#4f46e5" },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (error) {
-      alert("Payment initiation failed! Please try again.");
+      alert("Payment failed! Please try again.");
       console.error("Payment Error:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return <div className="text-center p-10">Loading Payment Details...</div>;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -75,12 +97,12 @@ function PayRegistrationFee() {
           One Last Step!
         </h1>
         <p className="text-gray-600 mb-6">
-          Please pay the one-time registration fee to submit your application
-          for review.
+          Please pay the one-time platform fee to submit your application for
+          review.
         </p>
         <div className="bg-purple-50 rounded-lg p-6 mb-8">
           <p className="text-sm font-semibold text-purple-700">
-            REGISTRATION FEE
+            PLATFORM PROCESSING FEE
           </p>
           <p className="text-5xl font-extrabold text-purple-800 my-2">
             <FaRupeeSign className="inline-block" /> {registrationFeeAmount}
