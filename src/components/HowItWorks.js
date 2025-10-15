@@ -7,6 +7,7 @@ import {
   FaShieldAlt,
   FaCreditCard,
   FaUniversity,
+  FaRupeeSign,
 } from "react-icons/fa";
 
 function HowItWorks() {
