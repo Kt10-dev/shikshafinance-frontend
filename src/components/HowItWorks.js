@@ -1,56 +1,58 @@
 import React from "react";
-
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import {
-  FaUserCheck,
+  FaUserPlus,
   FaWpforms,
-  FaSearch,
-  FaSignature,
-  FaRupeeSign,
+  FaShieldAlt,
+  FaCreditCard,
+  FaUniversity,
 } from "react-icons/fa";
 
 function HowItWorks() {
   const steps = [
     {
-      icon: <FaUserCheck className="w-8 h-8 text-white" />,
-      title: "Register & Check Eligibility",
+      icon: <FaUserPlus className="w-8 h-8 text-white" />,
+      title: "Create Your Account & Complete KYC",
       description:
-        "Create your account with a valid email. Fill in some basic details in our eligibility checker to see the loan options available for you.",
+        "Start by creating a secure account on our platform. Then, complete a quick KYC process by uploading your documents to verify your profile.",
     },
     {
       icon: <FaWpforms className="w-8 h-8 text-white" />,
-      title: "Complete Your Application",
+      title: "Fill Out the Common Application Form",
       description:
-        "Fill out our simple, multi-step application form with your personal, academic, and financial details. Upload the required documents securely through our portal.",
+        "Fill out our single, detailed application form with your personal, academic, and financial information. This one form will be used to apply to multiple lending partners.",
     },
     {
-      icon: <FaSearch className="w-8 h-8 text-white" />,
-      title: "Verification & Approval",
+      icon: <FaCreditCard className="w-8 h-8 text-white" />,
+      title: "Pay the Platform Fee",
       description:
-        "Our team will verify the information and documents you've provided. We may contact you for additional information. This process is quick and transparent.",
+        "Pay a small, one-time platform fee. This allows us to process your application, manage your documents securely, and forward your profile to our network of financial institutions.",
     },
     {
-      icon: <FaSignature className="w-8 h-8 text-white" />,
-      title: "Accept the Offer & e-Sign",
+      icon: <FaUniversity className="w-8 h-8 text-white" />,
+      title: "Application Review by Lending Partners",
       description:
-        "Once your application is approved, you will receive a loan offer detailing the amount, interest rate, and tenure. Accept the offer and digitally sign the loan agreement.",
+        "Once your fee is paid, your application is sent to our partner NBFCs and Banks. They will review your profile and make a decision based on their credit policies.",
     },
     {
       icon: <FaRupeeSign className="w-8 h-8 text-white" />,
-      title: "Funds Disbursed & Repay",
+      title: "Receive Offers & Get Funds Disbursed",
       description:
-        "After the agreement is signed, the loan amount is disbursed directly to the designated bank account. You can manage your loan and repay your EMIs through your personal dashboard.",
+        "If your application is approved by a lending partner, you will receive a loan offer directly from them. Upon your acceptance, the funds are disbursed to the designated account.",
     },
   ];
 
   return (
     <div>
+      <Navbar />
       <div className="container mx-auto px-6 py-24 max-w-4xl">
         <h1 className="text-4xl font-bold mb-4 text-center">
-          Our Simple 5-Step Loan Process
+          Our Simple 5-Step Application Process
         </h1>
         <p className="text-lg text-gray-600 mb-12 text-center">
-          From application to disbursal, we've made everything easy and
-          transparent for you.
+          We've made everything easy and transparent for you to connect with the
+          best lenders.
         </p>
 
         <div className="space-y-10">
@@ -71,6 +73,7 @@ function HowItWorks() {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

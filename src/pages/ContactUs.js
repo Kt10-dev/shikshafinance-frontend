@@ -1,5 +1,3 @@
-// src/pages/ContactUs.js
-
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -48,13 +46,15 @@ function ContactUs() {
               <FaEnvelope className="text-indigo-600 w-6 h-6 mt-1" />
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="text-gray-600">kt103263@gmail.com</p>
+                {/* BADLAAV YAHAN HAI */}
+                <p className="text-gray-600">kt103263gmail.com</p>
               </div>
             </div>
             <div className="flex items-start space-x-4">
               <FaPhone className="text-indigo-600 w-6 h-6 mt-1" />
               <div>
                 <h3 className="font-semibold">Phone</h3>
+                {/* BADLAAV YAHAN HAI */}
                 <p className="text-gray-600">+91 9694200417</p>
               </div>
             </div>

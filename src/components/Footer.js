@@ -1,8 +1,6 @@
-// src/components/Footer.js
-
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom"; // Link ka istemaal karenge
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -17,18 +15,24 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">ShikshaFinance</h3>
+            {/* BADLAAV 1: Tagline ko update kiya hai */}
             <p className="text-gray-400">
-              Empowering students to achieve their dreams by providing
-              accessible financial solutions.
+              A technology platform dedicated to connecting students with the
+              financial resources they need for their education.
             </p>
           </div>
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul>
-              {/* BADLAAV YAHAN HAI: <a> ki jagah <Link> aur 'to' attribute */}
               <li className="mb-2">
                 <Link to="/" className="hover:text-indigo-400">
                   Home
+                </Link>
+              </li>
+              {/* BADLAAV 2: How It Works ka link add kiya hai */}
+              <li className="mb-2">
+                <Link to="/how-it-works" className="hover:text-indigo-400">
+                  How It Works
                 </Link>
               </li>
               <li className="mb-2">
@@ -46,7 +50,6 @@ function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Legal</h3>
             <ul>
-              {/* BADLAAV YAHAN HAI: <a> ki jagah <Link> aur 'to' attribute */}
               <li className="mb-2">
                 <Link to="/privacy-policy" className="hover:text-indigo-400">
                   Privacy Policy

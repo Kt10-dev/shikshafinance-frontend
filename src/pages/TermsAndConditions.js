@@ -11,66 +11,71 @@ function TermsAndConditions() {
           Terms and Conditions
         </h1>
         <p className="text-sm text-gray-500 mb-8 text-center">
-          Last Updated: October 13, 2025
+          Last Updated: October 15, 2025
         </p>
 
         <div className="space-y-6 text-gray-700">
           <section>
-            <h2 className="text-2xl font-semibold mb-2">1. Introduction</h2>
+            <h2 className="text-2xl font-semibold mb-2">
+              1. Acceptance of Terms
+            </h2>
             <p>
-              Welcome to ShikshaFinance. These terms and conditions outline the
-              rules and regulations for the use of our website and services. By
-              accessing this website, you accept these terms and conditions in
-              full. Do not continue to use ShikshaFinance's website if you do
-              not accept all of the terms and conditions stated on this page.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-2">2. Eligibility</h2>
-            <p>
-              To be eligible to apply for a loan through our platform, you must
-              be at least 18 years of age, a resident of India, and meet the
-              specific eligibility criteria for the loan product you are
-              applying for.
+              Welcome to ShikshaFinance. We provide a technology platform that
+              connects student loan applicants with our network of partner
+              financial institutions. By using our website and services, you
+              agree to comply with and be bound by the following terms and
+              conditions.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-2">
-              3. User Accounts and Registration
+              2. Description of Service
             </h2>
             <p>
-              You are responsible for maintaining the confidentiality of your
-              account password and for all activities that occur under your
-              account. You agree to provide accurate, current, and complete
-              information during the registration process.
+              ShikshaFinance is not a lender, bank, or NBFC. Our service
+              consists of providing a platform to help you prepare, submit, and
+              track your loan application, which is then forwarded to our
+              third-party lending partners for their evaluation and approval.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-2">
-              4. Loan Application Process
+              3. User Accounts and Eligibility
             </h2>
             <p>
-              Submitting a loan application does not guarantee approval. All
-              applications are subject to review and verification. Providing
-              false information will result in immediate rejection of your
-              application and may lead to legal action.
+              You must be at least 18 years old and a resident of India to use
+              our services. You are responsible for maintaining the
+              confidentiality of your account and for providing accurate and
+              complete information during registration and application.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-2">
-              5. Fees and Payments
+              4. Application Process
             </h2>
             <p>
-              A non-refundable registration fee of <strong>₹199</strong> is
-              required to process your loan application. This fee covers initial
-              administrative and verification costs. If your loan is approved,
-              you are obligated to repay the Equated Monthly Installments (EMIs)
-              as per your loan agreement. Failure to pay an EMI by the due date
-              will result in a late fee.
+              Submitting an application through our platform does not guarantee
+              loan approval. The final decision to approve or reject an
+              application, as well as the loan terms (amount, interest rate,
+              tenure), rests solely with our lending partners.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-2">
+              5. Platform & Processing Fees
+            </h2>
+            <p>
+              To use our platform's services for application submission,
+              document management, and processing, a non-refundable **Platform
+              Processing Fee of ₹199** is required. This fee is for the services
+              provided by ShikshaFinance and is not a loan processing fee
+              charged by the lender. Failure to pay an approved loan's EMI on
+              time will result in late fees as per the terms of the respective
+              lending partner.
             </p>
           </section>
 
@@ -79,11 +84,10 @@ function TermsAndConditions() {
               6. Limitation of Liability
             </h2>
             <p>
-              ShikshaFinance is a platform connecting students with financial
-              services. We are not a bank. We shall not be held liable for any
-              losses or damages in connection with the use of our website. The
-              final loan terms and approval are at the sole discretion of our
-              lending partners.
+              ShikshaFinance shall not be held liable for the rejection of any
+              loan application or for any terms and conditions set by our
+              lending partners. Our liability is limited to the services
+              provided on our platform.
             </p>
           </section>
 
@@ -92,18 +96,9 @@ function TermsAndConditions() {
               7. Governing Law & Jurisdiction
             </h2>
             <p>
-              These terms will be governed by and construed in accordance with
-              the laws of India. Any disputes will be subject to the
-              jurisdiction of the courts located in Indore, Madhya Pradesh.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-2">8. Changes to Terms</h2>
-            <p>
-              We reserve the right to revise these terms and conditions at any
-              time. By using this website, you are expected to review these
-              terms on a regular basis.
+              These terms will be governed by the laws of India. Any disputes
+              will be subject to the jurisdiction of the courts located in
+              Indore, Madhya Pradesh.
             </p>
           </section>
         </div>

@@ -1,9 +1,29 @@
-// src/components/Navbar.js
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  // This effect will run if the token in localStorage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem("token"));
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("isAdminLoggedIn"); // Admin login bhi clear karein
+    setToken(null); // Update the state
+    navigate("/login");
+  };
+
   return (
     <motion.nav
       className="bg-white shadow-md sticky top-0 z-50"
@@ -14,102 +34,78 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <motion.a
-              href="/"
-              className="text-2xl font-bold text-indigo-600"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            {/* BADLAAV 1: <a> ki jagah <Link> ka istemaal */}
+            <Link to="/" className="text-2xl font-bold text-indigo-600">
               ShikshaFinance
-            </motion.a>
+            </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-1">
-              {/* Sabhi links ab motion components hain */}
-              <motion.a
-                href="/how-it-works"
-                className="text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: "#eef2ff",
-                  color: "#4338ca",
-                }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.2 }}
+            <div className="ml-10 flex items-baseline space-x-4">
+              <Link
+                to="/how-it-works"
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition"
               >
                 How it Works
-              </motion.a>
-              <motion.a
-                href="#loan-types"
-                className="text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: "#eef2ff",
-                  color: "#4338ca",
-                }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.2 }}
+              </Link>
+              <Link
+                to="/about"
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition"
               >
-                Loan Types
-              </motion.a>
-              <motion.a
-                href="#faq"
-                className="text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: "#eef2ff",
-                  color: "#4338ca",
-                }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.2 }}
+                About Us
+              </Link>
+              <Link
+                to="/contact"
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition"
               >
-                FAQs
-              </motion.a>
-              <motion.a
-                href="#contact"
-                className="text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: "#eef2ff",
-                  color: "#4338ca",
-                }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.2 }}
-              >
-                Contact Us
-              </motion.a>
+                Contact
+              </Link>
             </div>
           </div>
           <div className="hidden md:block">
-            <motion.a
-              href="/login"
-              className="ml-4 bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 0px 8px rgb(99, 102, 241)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              Login
-            </motion.a>
+            {/* BADLAAV 2: Login status ke hisaab se button dikhayein */}
+            {token ? (
+              // Agar user LOGGED IN hai
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/dashboard"
+                  className="text-gray-700 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md text-sm font-medium"
+                >
+                  Dashboard
+                </Link>
+                <motion.button
+                  onClick={handleLogout}
+                  className="ml-4 bg-red-500 text-white px-4 py-2 rounded-md text-sm font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Logout
+                </motion.button>
+              </div>
+            ) : (
+              // Agar user LOGGED OUT hai
+              <div className="flex items-center space-x-2">
+                <Link
+                  to="/login"
+                  className="text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium"
+                >
+                  Login
+                </Link>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    to="/register"
+                    className="ml-2 bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+                  >
+                    Register
+                  </Link>
+                </motion.div>
+              </div>
+            )}
           </div>
           <div className="md:hidden flex items-center">
-            <button className="bg-indigo-600 text-white inline-flex items-center justify-center p-2 rounded-md">
-              <svg
-                className="h-6 w-6"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
-            </button>
+            {/* Mobile menu button yahaan implement ho sakta hai */}
           </div>
         </div>
       </div>

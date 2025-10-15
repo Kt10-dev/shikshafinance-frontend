@@ -1,109 +1,51 @@
-// src/components/Features.js
-
 import React from "react";
-// Step 1: Framer Motion se 'motion' ko import karein
 import { motion } from "framer-motion";
+import {
+  FaRocket,
+  FaBalanceScale,
+  FaFileUpload,
+  FaTasks,
+} from "react-icons/fa";
 
 function Features() {
+  // BADLAAV YAHAN HAI: Naye icons aur compliant text
   const featureList = [
     {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-10 w-10 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      ),
-      title: "Fast Approval",
+      icon: <FaRocket className="h-10 w-10 text-white" />,
+      title: "Simplified Application",
       description:
-        "Get your loan approved in minutes with our fast-track digital verification process.",
+        "Our smart, single application form saves you time and effort by applying to multiple lending partners at once.",
     },
     {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-10 w-10 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"
-          />
-        </svg>
-      ),
-      title: "Low Interest Rates",
+      icon: <FaBalanceScale className="h-10 w-10 text-white" />,
+      title: "Compare Multiple Offers",
       description:
-        "We offer competitive interest rates to make education affordable for everyone.",
+        "Get access to loan offers from our network of partner NBFCs and banks, helping you choose the best rates and terms.",
     },
     {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-10 w-10 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-          />
-        </svg>
-      ),
-      title: "Minimal Paperwork",
+      icon: <FaFileUpload className="h-10 w-10 text-white" />,
+      title: "Digital Document Upload",
       description:
-        "Our entire process is online. Just upload the required documents and you are done.",
+        "No more physical paperwork. Securely upload all your required documents directly through our encrypted portal.",
     },
     {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-10 w-10 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H7a3 3 0 00-3 3v8a3 3 0 003 3z"
-          />
-        </svg>
-      ),
-      title: "Flexible Repayment",
+      icon: <FaTasks className="h-10 w-10 text-white" />,
+      title: "End-to-End Tracking",
       description:
-        "Choose from multiple repayment options that suit your financial convenience after your course.",
+        "Track every step of your application process, from submission to disbursal, right from your personal dashboard.",
     },
   ];
 
-  // Animation variants for the container to manage staggering children
+  // Animation variants (No changes here)
   const containerVariants = {
     hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Har child ke beech 0.2s ka delay
+        staggerChildren: 0.2,
       },
     },
   };
-
-  // Animation variants for each feature item
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -130,8 +72,8 @@ function Features() {
             Why Choose <span className="text-indigo-600">ShikshaFinance</span>?
           </h2>
           <p className="mt-2 text-gray-600">
-            We are dedicated to making your education journey smooth and
-            hassle-free.
+            A modern platform designed to make your education finance journey
+            smooth and transparent.
           </p>
         </motion.div>
 
@@ -147,7 +89,7 @@ function Features() {
             <motion.div
               key={index}
               className="bg-gray-50 p-6 rounded-lg"
-              variants={itemVariants} // Use the item variants here
+              variants={itemVariants}
             >
               <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-500 mb-4">
                 {feature.icon}
