@@ -15,12 +15,9 @@ function PayRegistrationFee() {
     const fetchAppDetails = async () => {
       try {
         const token = localStorage.getItem("token");
-        // BADLAAV YAHAN HAI: Sahi URL se data fetch karein
         const { data } = await axios.get(
           "https://shikshafinance-api.onrender.com/applications/my-application",
-          {
-            headers: { "x-auth-token": token },
-          }
+          { headers: { "x-auth-token": token } }
         );
         setApplication(data.application);
       } catch (err) {
@@ -30,64 +27,51 @@ function PayRegistrationFee() {
       }
     };
     fetchAppDetails();
-  }, []);
+  }, [navigate]);
 
+  // --- BADLAAV YAHAN HAI: Yeh naya Instamojo wala function hai ---
   const handlePayment = async () => {
-    // Check if application details are loaded
     if (!application) {
-      alert("User details not loaded yet. Please wait a moment and try again.");
+      alert("Application details not loaded. Please wait and try again.");
       return;
     }
 
+    setLoading(true);
+
     try {
       const token = localStorage.getItem("token");
-      const {
-        data: { key },
-      } = await axios.get(
-        "https://shikshafinance-api.onrender.com/payment/get-key"
-      );
 
-      const { data: order } = await axios.post(
-        "https://shikshafinance-api.onrender.com/payment/create-registration-order",
-        { amount: registrationFeeAmount, applicationId: applicationId },
+      // Yeh redirect URL Instamojo ko batayega ki payment ke baad kahan waapis aana hai
+      const redirectUrl = `https://shikshafinance-frontend.vercel.app/payment-status?app_id=${applicationId}`;
+
+      const { data } = await axios.post(
+        "https://shikshafinance-api.onrender.com/instamojo/create-payment-link",
+        {
+          amount: registrationFeeAmount,
+          purpose: "ShikshaFinance Platform Fee",
+          buyer_name: application.fullName,
+          email: application.email,
+          redirect_url: redirectUrl, // Hum backend ko naya redirect URL bhej rahe hain
+        },
         { headers: { "x-auth-token": token } }
       );
 
-      const options = {
-        key,
-        amount: order.amount,
-        currency: "INR",
-        name: "ShikshaFinance Platform Fee",
-        description: "One-time Application Processing Fee",
-        order_id: order.id,
-        handler: async function (response) {
-          const verificationData = { ...response, applicationId };
-          await axios.post(
-            "https://shikshafinance-api.onrender.com/payment/verify-registration-payment",
-            verificationData,
-            { headers: { "x-auth-token": token } }
-          );
-          alert("Payment successful! Your application is now under review.");
-          navigate("/dashboard");
-        },
-        prefill: {
-          name: application.fullName,
-          email: application.email,
-          contact: application.phone,
-        },
-        theme: { color: "#4f46e5" },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
+      if (data.success && data.payment_url) {
+        // User ko Instamojo ke payment page par bhej do
+        window.location.href = data.payment_url;
+      } else {
+        alert("Could not create payment link. Please try again.");
+        setLoading(false);
+      }
     } catch (error) {
-      alert("Payment failed! Please try again.");
+      alert("Payment initiation failed! Please try again.");
       console.error("Payment Error:", error);
+      setLoading(false);
     }
   };
+  // --- BADLAAV KHATAM ---
 
-  if (loading)
-    return <div className="text-center p-10">Loading Payment Details...</div>;
+  if (loading) return <div className="text-center p-10">Loading...</div>;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -110,9 +94,10 @@ function PayRegistrationFee() {
         </div>
         <button
           onClick={handlePayment}
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition"
+          disabled={loading}
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition disabled:bg-gray-400"
         >
-          Pay Securely Now
+          {loading ? "Processing..." : "Pay Securely Now"}
         </button>
       </div>
     </div>
